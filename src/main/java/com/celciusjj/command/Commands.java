@@ -3,7 +3,7 @@ package com.celciusjj.command;
 import com.celciusjj.Main;
 import com.celciusjj.handlers.FileCreator;
 import com.celciusjj.listeners.EntityEvents;
-import com.celciusjj.duel.CreateRequest;
+import com.celciusjj.duel.CreateRequestDuel;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,14 +15,14 @@ public class Commands implements CommandExecutor {
 
     private Main main;
     private final FileCreator lang, config;
-    CreateRequest sendRequest;
+    CreateRequestDuel sendRequest;
     public HashMap<String, Long> cooldowns = new HashMap<String, Long>();
 
     public Commands(Main plugin) {
         this.main = plugin;
         this.lang = main.getLang();
         this.config = main.getConfig();
-        sendRequest = new CreateRequest();
+        sendRequest = new CreateRequestDuel();
     }
 
     @Override

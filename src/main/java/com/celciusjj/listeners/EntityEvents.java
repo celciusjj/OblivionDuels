@@ -3,7 +3,7 @@ package com.celciusjj.listeners;
 import com.celciusjj.Main;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.celciusjj.duel.CooldownTimer;
+import com.celciusjj.duel.FinishDuel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -64,7 +64,7 @@ public class EntityEvents implements Listener {
     public void onEntityDeath(EntityDeathEvent e) {
         if (e.getEntity() instanceof Player) {
             Player deathPlayer = (Player) e.getEntity();
-            CooldownTimer cooldown = new CooldownTimer(main);
+            FinishDuel cooldown = new FinishDuel(main);
             if (entities.containsValue(deathPlayer.getUniqueId())) {
                 cooldown.stopRunneable(deathPlayer.getUniqueId());
                 entities.inverse().remove(deathPlayer.getUniqueId());
@@ -79,11 +79,11 @@ public class EntityEvents implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
         if (entities.containsValue(player.getUniqueId())) {
-            CooldownTimer cooldown = new CooldownTimer(main);
+            FinishDuel cooldown = new FinishDuel(main);
             cooldown.stopRunneable(player.getUniqueId());
             entities.inverse().remove(player.getUniqueId());
         } else if (entities.containsKey(player.getUniqueId())) {
-            CooldownTimer cooldown = new CooldownTimer(main);
+            FinishDuel cooldown = new FinishDuel(main);
             cooldown.stopRunneable(player.getUniqueId());
             entities.remove(player.getUniqueId());
         }

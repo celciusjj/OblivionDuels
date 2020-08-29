@@ -3,7 +3,6 @@ package com.celciusjj.duel;
 import com.celciusjj.Main;
 import com.celciusjj.handlers.CountdownHandler;
 import com.celciusjj.handlers.EntityParticles;
-import com.celciusjj.handlers.InventoryCreator;
 import com.celciusjj.listeners.EntityEvents;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -11,33 +10,11 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 
-import java.util.HashMap;
-
-public class CreateRequest implements Listener {
-
-    public static HashMap<Player, Player> duelPrepare = new HashMap<Player, Player>();
-    private static double ALPHA = 0;
+public class StartDuel {
 
     private Main main = Main.getPlugin(Main.class);
-
-    public void initializeRequest(Player desafiant, Player target) {
-        if (!duelPrepare.containsKey(desafiant) && !duelPrepare.containsValue(desafiant) && !duelPrepare.containsKey(target)
-                && !duelPrepare.containsValue(target)) {
-            duelPrepare.put(target, desafiant);
-
-            target.sendMessage("§7Ha recibido una solicitud de duelo de §a" + desafiant.getName());
-
-            desafiant.sendMessage("§7La solicitud ha sido enviada con exito a §a" + target.getName());
-
-            InventoryCreator inventory = new InventoryCreator();
-            target.openInventory(inventory.createInventory());
-
-        } else {
-            desafiant.sendMessage("§cUsted o el jugador retado tiene una solicitud de duelo pendiente.");
-        }
-    }
+    private static double ALPHA = 0;
 
     public EntityParticles putFlag(Player retador, Player target) {
         Location loc = new Location(retador.getWorld(),
@@ -68,10 +45,10 @@ public class CreateRequest implements Listener {
         return taskID;
     }
 
-    public void countDown(Player desafiant, Player target) {
+    public void prepareBattle(Player desafiant, Player target) {
         CountdownHandler timer = new CountdownHandler(main, 1, () -> {
-            CooldownTimer cooldown = new CooldownTimer(main);
-            cooldown.endBattle(desafiant, target, putFlag(desafiant, target));
+            FinishDuel cooldown = new FinishDuel(main);
+            cooldown.startCountDown(desafiant, target, putFlag(desafiant, target));
             target.closeInventory();
         }, () -> {
             EntityEvents.entities.put(desafiant.getUniqueId(), target.getUniqueId());
@@ -89,5 +66,4 @@ public class CreateRequest implements Listener {
         // Start scheduling, don't use the "run" method unless you want to skip a second
         timer.scheduleTimer();
     }
-
 }

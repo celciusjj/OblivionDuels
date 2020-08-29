@@ -1,9 +1,9 @@
 package com.celciusjj;
 
-import com.celciusjj.duel.CooldownTimer;
+import com.celciusjj.duel.FinishDuel;
 import com.celciusjj.listeners.InventoryEvents;
 import com.celciusjj.listeners.RegionCommands;
-import com.celciusjj.duel.CreateRequest;
+import com.celciusjj.duel.CreateRequestDuel;
 import com.celciusjj.command.Commands;
 import com.celciusjj.listeners.EntityEvents;
 import com.celciusjj.handlers.FileCreator;
@@ -46,14 +46,14 @@ public class Main extends JavaPlugin {
     }
 
     void removeAll() {
-        for (int i = 0; i < CooldownTimer.battleList.size(); i++) {
-            CooldownTimer.battleList.get(i).getBanner().getEntity().remove();
+        for (int i = 0; i < FinishDuel.battleList.size(); i++) {
+            FinishDuel.battleList.get(i).getBanner().getEntity().remove();
         }
     }
 
     public void registerEvents() {
         PluginManager mg = getServer().getPluginManager();
-        mg.registerEvents(new CreateRequest(), this);
+        mg.registerEvents(new CreateRequestDuel(), this);
         mg.registerEvents(new EntityEvents(this), this);
         mg.registerEvents(new RegionCommands(), this);
         mg.registerEvents(new InventoryEvents(), this);

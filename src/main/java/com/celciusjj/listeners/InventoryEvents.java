@@ -1,7 +1,8 @@
 package com.celciusjj.listeners;
 
+import com.celciusjj.duel.StartDuel;
 import com.celciusjj.handlers.InventoryCreator;
-import com.celciusjj.duel.CreateRequest;
+import com.celciusjj.duel.CreateRequestDuel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,8 +17,8 @@ public class InventoryEvents implements Listener {
     public void closeInventoryScape(InventoryCloseEvent event) {
         if (event.getView().getTitle().equals(inventory.getInventoryName())) {
             Player player = (Player) event.getPlayer();
-            if (CreateRequest.duelPrepare.containsKey(player)) {
-                CreateRequest.duelPrepare.remove(player);
+            if (CreateRequestDuel.duelPrepare.containsKey(player)) {
+                CreateRequestDuel.duelPrepare.remove(player);
             }
         }
     }
@@ -37,8 +38,8 @@ public class InventoryEvents implements Listener {
                 if (slot == 6) {
                     p.closeInventory();
                 } else if (slot == 2) {
-                    CreateRequest createRequest = new CreateRequest();
-                    createRequest.countDown(CreateRequest.duelPrepare.get(p), p);
+                    StartDuel startBattle = new StartDuel();
+                    startBattle.prepareBattle(CreateRequestDuel.duelPrepare.get(p), p);
                 }
             }
         }
