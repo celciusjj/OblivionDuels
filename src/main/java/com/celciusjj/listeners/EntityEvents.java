@@ -3,7 +3,7 @@ package com.celciusjj.listeners;
 import com.celciusjj.Main;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.celciusjj.CooldownTimer;
+import com.celciusjj.duel.CooldownTimer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,11 +13,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.UUID;
 
-public class EntityDamage implements Listener {
+public class EntityEvents implements Listener {
 
     Main main;
 
-    public EntityDamage(Main main) {
+    public EntityEvents(Main main) {
         this.main = main;
     }
 

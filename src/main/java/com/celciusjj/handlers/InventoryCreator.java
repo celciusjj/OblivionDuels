@@ -17,8 +17,6 @@ public class InventoryCreator {
         return fillInventory(inventario);
     }//§
 
-
-
     public Inventory fillInventory(org.bukkit.inventory.Inventory inv) {
         ItemStack item = new ItemStack(Material.RED_WOOL);
         ItemMeta meta = item.getItemMeta();
@@ -51,7 +49,6 @@ public class InventoryCreator {
 
         return inv;
     }
-
 
     public String getInventoryName(){
         return INVENTORY_NAME;

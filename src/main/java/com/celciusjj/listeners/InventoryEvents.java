@@ -1,14 +1,12 @@
 package com.celciusjj.listeners;
 
 import com.celciusjj.handlers.InventoryCreator;
-import com.celciusjj.request.CreateRequest;
+import com.celciusjj.duel.CreateRequest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-
-import static org.bukkit.Bukkit.getServer;
 
 public class InventoryEvents implements Listener {
 

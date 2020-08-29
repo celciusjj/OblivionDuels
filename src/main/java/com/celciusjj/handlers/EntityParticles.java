@@ -20,11 +20,9 @@ public class EntityParticles {
         this.entity = entity;
     }
 
-
     public int getTaskIdParticles() {
         return taskIdParticles;
     }
-
 
     public void setTaskIdParticles(int taskIdParticles) {
         this.taskIdParticles = taskIdParticles;

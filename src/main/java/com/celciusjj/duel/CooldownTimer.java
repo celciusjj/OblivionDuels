@@ -1,13 +1,13 @@
 //import EntityParticles;
 //import PvpBattle;
-package com.celciusjj;
+package com.celciusjj.duel;
 
+import com.celciusjj.Main;
 import com.celciusjj.handlers.EntityParticles;
 import com.celciusjj.handlers.PvpBattle;
-import com.celciusjj.listeners.EntityDamage;
+import com.celciusjj.listeners.EntityEvents;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
-
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -21,9 +21,7 @@ public class CooldownTimer {
         this.duelTime = plugin.getConfig().getInt("Duel_Time");
     }
 
-
-    static ArrayList<PvpBattle> battleList = new ArrayList<PvpBattle>();
-
+    public static ArrayList<PvpBattle> battleList = new ArrayList<>();
 
     public void endBattle(Player retador, Player target, EntityParticles banner) {
         int taskID = plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
@@ -33,7 +31,7 @@ public class CooldownTimer {
             target.sendTitle(ChatColor.translateAlternateColorCodes('&', "&6&lDuelo"),
                     "�La batalla ha finalizado en empate!", 1, 20, 1);
 
-            EntityDamage.entities.remove(retador.getUniqueId());
+            EntityEvents.entities.remove(retador.getUniqueId());
 
             for (int i = 0; i < battleList.size(); i++) {
                 if (battleList.get(i).getRetador().equals(retador.getUniqueId())

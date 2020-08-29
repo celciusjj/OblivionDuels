@@ -16,7 +16,6 @@ public class PvpBattle {
         this.banner = banner;
     }
 
-
     public UUID getRetador() {
         return retador;
     }

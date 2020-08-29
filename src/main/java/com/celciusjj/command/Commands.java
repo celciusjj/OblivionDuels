@@ -2,8 +2,8 @@ package com.celciusjj.command;
 
 import com.celciusjj.Main;
 import com.celciusjj.handlers.FileCreator;
-import com.celciusjj.listeners.EntityDamage;
-import com.celciusjj.request.CreateRequest;
+import com.celciusjj.listeners.EntityEvents;
+import com.celciusjj.duel.CreateRequest;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,6 +16,7 @@ public class Commands implements CommandExecutor {
     private Main main;
     private final FileCreator lang, config;
     CreateRequest sendRequest;
+    public HashMap<String, Long> cooldowns = new HashMap<String, Long>();
 
     public Commands(Main plugin) {
         this.main = plugin;
@@ -23,10 +24,6 @@ public class Commands implements CommandExecutor {
         this.config = main.getConfig();
         sendRequest = new CreateRequest();
     }
-
-    public HashMap<String, Long> cooldowns = new HashMap<String, Long>();
-
-
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -55,11 +52,11 @@ public class Commands implements CommandExecutor {
                     player.sendMessage("§c" + this.lang.getString("Commands.Not_Find_Player"));
                 } else {
                     if (!player.getUniqueId().equals(target.getUniqueId())) {
-                        if (EntityDamage.entities.size() != 0) {
-                            if (EntityDamage.entities.containsKey(target.getUniqueId())
-                                    || EntityDamage.entities.containsValue(target.getUniqueId())
-                                    || EntityDamage.entities.containsKey(player.getUniqueId())
-                                    || EntityDamage.entities.containsValue(player.getUniqueId())) {
+                        if (EntityEvents.entities.size() != 0) {
+                            if (EntityEvents.entities.containsKey(target.getUniqueId())
+                                    || EntityEvents.entities.containsValue(target.getUniqueId())
+                                    || EntityEvents.entities.containsKey(player.getUniqueId())
+                                    || EntityEvents.entities.containsValue(player.getUniqueId())) {
                                 isInPvp = true;
                             }
                         }

@@ -1,12 +1,12 @@
 package com.celciusjj;
 
+import com.celciusjj.duel.CooldownTimer;
 import com.celciusjj.listeners.InventoryEvents;
 import com.celciusjj.listeners.RegionCommands;
-import com.celciusjj.request.CreateRequest;
+import com.celciusjj.duel.CreateRequest;
 import com.celciusjj.command.Commands;
-import com.celciusjj.listeners.EntityDamage;
+import com.celciusjj.listeners.EntityEvents;
 import com.celciusjj.handlers.FileCreator;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
@@ -54,7 +54,7 @@ public class Main extends JavaPlugin {
     public void registerEvents() {
         PluginManager mg = getServer().getPluginManager();
         mg.registerEvents(new CreateRequest(), this);
-        mg.registerEvents(new EntityDamage(this), this);
+        mg.registerEvents(new EntityEvents(this), this);
         mg.registerEvents(new RegionCommands(), this);
         mg.registerEvents(new InventoryEvents(), this);
     }

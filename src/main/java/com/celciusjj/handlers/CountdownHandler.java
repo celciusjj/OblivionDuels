@@ -22,10 +22,8 @@ public class CountdownHandler implements Runnable {
                             Consumer<CountdownHandler> everySecond) {
         // Initializing fields
         this.plugin = plugin;
-
         this.seconds = seconds;
         this.secondsLeft = seconds;
-
         this.beforeTimer = beforeTimer;
         this.afterTimer = afterTimer;
         this.everySecond = everySecond;

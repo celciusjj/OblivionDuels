@@ -1,11 +1,10 @@
-package com.celciusjj.request;
+package com.celciusjj.duel;
 
 import com.celciusjj.Main;
 import com.celciusjj.handlers.CountdownHandler;
-import com.celciusjj.CooldownTimer;
 import com.celciusjj.handlers.EntityParticles;
 import com.celciusjj.handlers.InventoryCreator;
-import com.celciusjj.listeners.EntityDamage;
+import com.celciusjj.listeners.EntityEvents;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.ArmorStand;
@@ -75,7 +74,7 @@ public class CreateRequest implements Listener {
             cooldown.endBattle(desafiant, target, putFlag(desafiant, target));
             target.closeInventory();
         }, () -> {
-            EntityDamage.entities.put(desafiant.getUniqueId(), target.getUniqueId());
+            EntityEvents.entities.put(desafiant.getUniqueId(), target.getUniqueId());
             desafiant.sendTitle("§6§lDuelo", "Por la sangre y la gloria!",
                     1, 30, 1);
             target.sendTitle("§6§lDuelo", "Por la sangre y la gloria!",
