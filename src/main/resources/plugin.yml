@@ -1,0 +1,8 @@
+main: com.celciusjj.Main
+version: 1.3
+name: OblivionDuels
+api-version: 1.13
+commands:
+  duel:
+    description: Comando para enviar solicitud de pvp
+    aliases: duelo

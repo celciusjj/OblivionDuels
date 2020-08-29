@@ -1,0 +1,6 @@
+Commands:
+  Null_Player: "Debe especificar un jugador."
+  Not_Find_Player: "No se ha encontrado el jugador."
+  Out_Range_Player: "El jugador a retar debe estar cerca de usted."
+  Player_In_Duel: "Usted o su oponente esta en un duelo en este momento."
+  Self_Duel: "No puede enviarse una peticion de duelo a usted mismo."
