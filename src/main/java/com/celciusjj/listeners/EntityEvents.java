@@ -1,9 +1,9 @@
 package com.celciusjj.listeners;
 
-import com.celciusjj.Main;
+import com.celciusjj.OblivionDuels;
+import com.celciusjj.duel.ManageDuels;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.celciusjj.duel.FinishDuel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,14 +15,14 @@ import java.util.UUID;
 
 public class EntityEvents implements Listener {
 
-    Main main;
+    OblivionDuels oblivionDuels;
 
-    public EntityEvents(Main main) {
-        this.main = main;
+    public EntityEvents(OblivionDuels oblivionDuels) {
+        this.oblivionDuels = oblivionDuels;
     }
 
     public static BiMap<UUID, UUID> entities = HashBiMap.create();
-    RegionCommands region = new RegionCommands();
+    RegionEvents region = new RegionEvents();
 
     @EventHandler
     public void entity_damage(EntityDamageByEntityEvent e) {
@@ -64,7 +64,7 @@ public class EntityEvents implements Listener {
     public void onEntityDeath(EntityDeathEvent e) {
         if (e.getEntity() instanceof Player) {
             Player deathPlayer = (Player) e.getEntity();
-            FinishDuel cooldown = new FinishDuel(main);
+            ManageDuels cooldown = new ManageDuels(oblivionDuels);
             if (entities.containsValue(deathPlayer.getUniqueId())) {
                 cooldown.stopRunneable(deathPlayer.getUniqueId());
                 entities.inverse().remove(deathPlayer.getUniqueId());
@@ -79,11 +79,11 @@ public class EntityEvents implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
         if (entities.containsValue(player.getUniqueId())) {
-            FinishDuel cooldown = new FinishDuel(main);
+            ManageDuels cooldown = new ManageDuels(oblivionDuels);
             cooldown.stopRunneable(player.getUniqueId());
             entities.inverse().remove(player.getUniqueId());
         } else if (entities.containsKey(player.getUniqueId())) {
-            FinishDuel cooldown = new FinishDuel(main);
+            ManageDuels cooldown = new ManageDuels(oblivionDuels);
             cooldown.stopRunneable(player.getUniqueId());
             entities.remove(player.getUniqueId());
         }

@@ -1,9 +1,9 @@
 package com.celciusjj.command;
 
-import com.celciusjj.Main;
-import com.celciusjj.handlers.FileCreator;
+import com.celciusjj.OblivionDuels;
+import com.celciusjj.duel.ManageDuels;
+import com.celciusjj.utils.FileCreator;
 import com.celciusjj.listeners.EntityEvents;
-import com.celciusjj.duel.CreateRequestDuel;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,16 +13,16 @@ import java.util.HashMap;
 
 public class Commands implements CommandExecutor {
 
-    private Main main;
+    private OblivionDuels oblivionDuels;
     private final FileCreator lang, config;
-    CreateRequestDuel sendRequest;
+    ManageDuels initializeDuels;
     public HashMap<String, Long> cooldowns = new HashMap<String, Long>();
 
-    public Commands(Main plugin) {
-        this.main = plugin;
-        this.lang = main.getLang();
-        this.config = main.getConfig();
-        sendRequest = new CreateRequestDuel();
+    public Commands(OblivionDuels plugin) {
+        this.oblivionDuels = plugin;
+        this.lang = oblivionDuels.getLang();
+        this.config = oblivionDuels.getConfig();
+        initializeDuels = new ManageDuels(plugin);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class Commands implements CommandExecutor {
                         if (!isInPvp) {
                             if (player.getLocation().distanceSquared(target.getLocation()) <= Math.pow(config.getInt("Duel_Range"), 2)) {
                                 cooldowns.put(sender.getName(), System.currentTimeMillis());
-                                sendRequest.initializeRequest(player, target);
+                                initializeDuels.initializeRequest(player, target);
                             } else {
                                 player.sendMessage("§c" + this.lang.getString("Commands.Out_Range_Player"));
                             }
@@ -71,7 +71,7 @@ public class Commands implements CommandExecutor {
                             player.sendMessage("§c" + this.lang.getString("Commands.Player_In_Duel"));
                         }
                     } else {
-                        player.sendMessage("§c" + this.lang.getString("Commands.Self_Duel"));
+                        player.sendMessage("§c"+this.lang.getString("Commands.Self_Duel"));
                     }
                 }
             }

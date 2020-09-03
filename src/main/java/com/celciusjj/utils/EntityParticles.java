@@ -1,4 +1,4 @@
-package com.celciusjj.handlers;
+package com.celciusjj.utils;
 
 import org.bukkit.entity.Entity;
 

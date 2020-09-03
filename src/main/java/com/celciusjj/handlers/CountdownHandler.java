@@ -1,12 +1,12 @@
 package com.celciusjj.handlers;
 
-import com.celciusjj.Main;
+import com.celciusjj.OblivionDuels;
 import org.bukkit.Bukkit;
 import java.util.function.Consumer;
 
 public class CountdownHandler implements Runnable {
 
-    private Main plugin;
+    private OblivionDuels plugin;
 
     private Integer assignedTaskId;
 
@@ -18,7 +18,7 @@ public class CountdownHandler implements Runnable {
     private Runnable afterTimer;
 
 
-    public CountdownHandler(Main plugin, int seconds, Runnable beforeTimer, Runnable afterTimer,
+    public CountdownHandler(OblivionDuels plugin, int seconds, Runnable beforeTimer, Runnable afterTimer,
                             Consumer<CountdownHandler> everySecond) {
         // Initializing fields
         this.plugin = plugin;
@@ -29,14 +29,12 @@ public class CountdownHandler implements Runnable {
         this.everySecond = everySecond;
     }
 
-    public CountdownHandler(Main plugin, int seconds, double alpha, Runnable beforeTimer, Runnable afterTimer,
+    public CountdownHandler(OblivionDuels plugin, int seconds, double alpha, Runnable beforeTimer, Runnable afterTimer,
                             Consumer<CountdownHandler> everySecond) {
         // Initializing fields
         this.plugin = plugin;
-
         this.seconds = seconds;
         this.secondsLeft = seconds;
-
         this.beforeTimer = beforeTimer;
         this.afterTimer = afterTimer;
         this.everySecond = everySecond;
@@ -48,7 +46,6 @@ public class CountdownHandler implements Runnable {
         if (secondsLeft < 1) {
             // Do what was supposed to happen after the timer
             afterTimer.run();
-
             // Cancel timer
             if (assignedTaskId != null)
                 Bukkit.getScheduler().cancelTask(assignedTaskId);

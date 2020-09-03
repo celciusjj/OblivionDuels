@@ -1,4 +1,4 @@
-package com.celciusjj.handlers;
+package com.celciusjj.utils;
 
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;

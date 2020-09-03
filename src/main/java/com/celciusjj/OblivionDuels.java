@@ -1,27 +1,25 @@
 package com.celciusjj;
 
-import com.celciusjj.duel.FinishDuel;
+import com.celciusjj.duel.ManageDuels;
 import com.celciusjj.listeners.InventoryEvents;
-import com.celciusjj.listeners.RegionCommands;
-import com.celciusjj.duel.CreateRequestDuel;
+import com.celciusjj.listeners.RegionEvents;
 import com.celciusjj.command.Commands;
 import com.celciusjj.listeners.EntityEvents;
-import com.celciusjj.handlers.FileCreator;
+import com.celciusjj.utils.FileCreator;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Main extends JavaPlugin {
-    PluginDescriptionFile pdffile = getDescription();
-    public String version = pdffile.getVersion();
+public class OblivionDuels extends JavaPlugin {
+
+    public String version = this.getDescription().getVersion();
 
     private FileCreator config, lang;
 
     public void onEnable() {
         Bukkit.getConsoleSender()
-                .sendMessage("§5The plugin has been enabled §b" + version);
-        Bukkit.getConsoleSender().sendMessage("§5Developed by §bCelcius");
+                .sendMessage("§5 The plugin has been enabled §b" + version);
+        Bukkit.getConsoleSender().sendMessage("§5 Developed by §b Celcius");
         setupFiles();
         registerCommands();
         registerEvents();
@@ -30,7 +28,7 @@ public class Main extends JavaPlugin {
     public void onDisable() {
         removeAll();
         Bukkit.getConsoleSender()
-                .sendMessage("§5The plugin has been disable");
+                .sendMessage("§5 The plugin has been disable");
     }
 
     void setupFiles() {
@@ -46,16 +44,15 @@ public class Main extends JavaPlugin {
     }
 
     void removeAll() {
-        for (int i = 0; i < FinishDuel.battleList.size(); i++) {
-            FinishDuel.battleList.get(i).getBanner().getEntity().remove();
+        for (int i = 0; i < ManageDuels.battleList.size(); i++) {
+            ManageDuels.battleList.get(i).getBanner().getEntity().remove();
         }
     }
 
     public void registerEvents() {
         PluginManager mg = getServer().getPluginManager();
-        mg.registerEvents(new CreateRequestDuel(), this);
         mg.registerEvents(new EntityEvents(this), this);
-        mg.registerEvents(new RegionCommands(), this);
+        mg.registerEvents(new RegionEvents(), this);
         mg.registerEvents(new InventoryEvents(), this);
     }
 

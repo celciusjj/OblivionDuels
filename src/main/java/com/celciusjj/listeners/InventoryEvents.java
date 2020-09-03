@@ -1,24 +1,26 @@
 package com.celciusjj.listeners;
 
-import com.celciusjj.duel.StartDuel;
-import com.celciusjj.handlers.InventoryCreator;
-import com.celciusjj.duel.CreateRequestDuel;
+import com.celciusjj.duel.DuelData;
+import com.celciusjj.duel.ManageDuels;
+import com.celciusjj.utils.InventoryCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import com.celciusjj.OblivionDuels;
 
 public class InventoryEvents implements Listener {
 
+    private final OblivionDuels plugin = OblivionDuels.getPlugin(OblivionDuels.class);
     InventoryCreator inventory = new InventoryCreator();
 
     @EventHandler
     public void closeInventoryScape(InventoryCloseEvent event) {
         if (event.getView().getTitle().equals(inventory.getInventoryName())) {
             Player player = (Player) event.getPlayer();
-            if (CreateRequestDuel.duelPrepare.containsKey(player)) {
-                CreateRequestDuel.duelPrepare.remove(player);
+            if (DuelData.duelRequest.containsKey(player)) {
+                DuelData.duelRequest.remove(player);
             }
         }
     }
@@ -38,8 +40,8 @@ public class InventoryEvents implements Listener {
                 if (slot == 6) {
                     p.closeInventory();
                 } else if (slot == 2) {
-                    StartDuel startBattle = new StartDuel();
-                    startBattle.prepareBattle(CreateRequestDuel.duelPrepare.get(p), p);
+                    ManageDuels duel = new ManageDuels(plugin);
+                    duel.prepareBattle(ManageDuels.duelRequest.get(p), p);
                 }
             }
         }

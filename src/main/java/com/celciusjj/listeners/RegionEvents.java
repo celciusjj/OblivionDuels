@@ -1,6 +1,6 @@
 package com.celciusjj.listeners;
 
-import com.celciusjj.Main;
+import com.celciusjj.OblivionDuels;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.WorldGuard;
@@ -15,24 +15,24 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import java.util.List;
 
 
-public class RegionCommands implements Listener {
+public class RegionEvents implements Listener {
 
-    private final Main plugin = Main.getPlugin(Main.class);
+    private final OblivionDuels plugin = OblivionDuels.getPlugin(OblivionDuels.class);
     List<String> lista = plugin.getConfig().getStringList("Duel_Zones_Exception");
 
     @EventHandler
     public void toUseTheCommand(PlayerCommandPreprocessEvent event) {
-        Player jugador = event.getPlayer();
-        String comando = event.getMessage();
+        Player player = event.getPlayer();
+        String command = event.getMessage();
 
-        if (comando.toLowerCase().startsWith("/duelo") || comando.toLowerCase().startsWith("/duel")) {
-            RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer().get(BukkitAdapter.adapt(jugador.getWorld()));
-            ApplicableRegionSet regionSet = regionManager.getApplicableRegions(BlockVector3.at(jugador.getLocation().getX(), jugador.getLocation().getY(), jugador.getLocation().getZ()));
+        if (command.toLowerCase().startsWith("/duelo") || command.toLowerCase().startsWith("/duel")) {
+            RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer().get(BukkitAdapter.adapt(player.getWorld()));
+            ApplicableRegionSet regionSet = regionManager.getApplicableRegions(BlockVector3.at(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ()));
             for (ProtectedRegion region : regionSet) {
                 for (String list : lista) {
                     if (region.getId().equals(list)) {
                         event.setCancelled(true);
-                        jugador.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lNo puedes retar a un duelo en este lugar"));
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lNo puedes retar a un duelo en este lugar"));
                         return;
                     }
                 }
